@@ -28,7 +28,7 @@ int three_sum_zero_sorted_one(const int* nums, int n, int* out_i, int* out_j, in
             // If sum too big, decrement right pointer
             else
             {
-                R++;
+                R--;
             }
         }
     }
