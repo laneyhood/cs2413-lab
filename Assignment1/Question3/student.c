@@ -28,6 +28,48 @@
 int* plusOne(int* digits, int digitsSize, int* returnSize) {
     // TODO: implement
 
-    
-}
+    int* arr = (int*)malloc((size_t)(digitsSize) * sizeof(int));
 
+    // Copy digits into new array
+    for(int j = 0; j < digitsSize; j++)
+    {
+        arr[j] = digits[j];
+    }
+        
+    int i = digitsSize - 1;
+
+    arr[i]=digits[i]+1;
+
+    // Go through all elements other than the first, and carry 1 to the next element to the left if the current element is 10
+    while(i>0)
+    {
+        if(arr[i]==10)
+        {
+            arr[i]=0;
+            arr[i-1]++;
+        }
+        i--;
+    }
+
+    // If the first element is 10, a bigger array is needed
+    if(arr[0]==10)
+    {
+        int* bigger_arr = (int*)malloc((size_t)(digitsSize+1) * sizeof(int));
+        // Put a 1 in the 1st element and a 0 in the second
+        bigger_arr[0] = 1;
+        bigger_arr[1] = 0;
+        // Copy the rest of arr into bigger_arr
+        for(int k = 2; k < digitsSize + 1; k++)
+        {
+            bigger_arr[k] = arr[k-1];
+        }
+        // Bigger array is a new size, so update returnSize
+        *returnSize = digitsSize + 1;
+        // Return bigger_arr
+        return bigger_arr;
+    }
+
+    // Else, arr is the same size as digits -> return arr
+    *returnSize = digitsSize;
+    return arr;
+}
