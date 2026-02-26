@@ -15,4 +15,17 @@
 int middleNodeValue(struct ListNode *head) {
     // TODO: implement
 
+    // Start pointers at beginning of list
+    struct ListNode* fast = head;
+    struct ListNode* slow = head;
+
+    // Increment fast pointer by 2 and slow pointer by 1
+    // Once fast pointer reaches the end in an odd length, slow is pointing to middle element
+    // Once fast pointer reaches second to last element in even length, slow is pointing to middle element
+    while(fast != NULL && fast->next != NULL)
+    {
+        fast = fast->next->next;
+        slow = slow->next;
+    }
+    return slow->val;
 }
