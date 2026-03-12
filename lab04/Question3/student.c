@@ -55,7 +55,26 @@ struct TreeNode {
     struct TreeNode *right;
 };
 
+// Use helper function that takes in the root and a "current" sum
+int dfs(struct TreeNode* root, int current)
+{
+    // Base case: root is null
+    if(root == NULL) return 0;
+
+    // Add the numbers up (with increasing powers of 10) to get total number in one path
+    current = current * 10 + root->val;
+
+    // Return current immediately if you've reached a leaf node
+    if(root->left == NULL && root->right == NULL)
+    {
+        return current;
+    }
+    
+    // Add up numbers from both sides
+    return dfs(root->left, current) + dfs(root->right, current);
+}
 
 int sumNumbers(struct TreeNode* root) {
-      // TODO: implement
+    // TODO: implement
+    return dfs(root, 0);
 }

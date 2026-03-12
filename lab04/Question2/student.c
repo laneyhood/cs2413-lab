@@ -48,8 +48,33 @@ struct TreeNode {
     struct TreeNode *right;
 };
 
+bool isMirror(struct TreeNode* left, struct TreeNode* right)
+{
+  // If both are null, you have reached the end, and they are mirrors
+  if(left == NULL && right == NULL) return true;
 
+  // If one or the other are null (but not both), then they cannot be mirrors (one branch has greater depth than the other)
+  if(left == NULL || right == NULL) return false;
+
+  // Check whether current values are equal--if not, return false
+  if(left->val != right->val) return false;
+
+  // Otherwise, do recursive calls
+  bool outer_check = isMirror(left->left, right->right);
+  bool inner_check = isMirror(left->right, right->left);
+
+  // If both outer and inner branches are mirrors of each other, return true
+  if(outer_check && inner_check) return true;
+
+  return false;
+}
 
 bool isSymmetric(struct TreeNode* root) {
-  // TODO: implement
+    // TODO: implement
+    if(root == NULL)
+    {
+      return true;
+    }
+    
+    return isMirror(root->left, root->right);
 }
