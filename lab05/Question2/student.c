@@ -47,6 +47,31 @@ Return the kth largest element in nums.
 */
 int findKthLargest(int* nums, int numsSize, int k) {
     /* Write your code here */
+
+    // Create a heap
+    int* heap = (int*)malloc(k*sizeof(int));
+    int heap_size = 0;
+    
+    for(int i = 0; i < numsSize; i++)
+    {
+        // Keep adding elements of nums until heap_size reaches k
+        if(heap_size < k)
+        {
+            heap[heap_size] = nums[i];
+            heapifyUp(heap, heap_size);
+            heap_size++;
+        }
+        // Once heap has size of k, check the rest of the elements of nums
+        // If next element of nums is larger than minimum value of heap, don't need min anymore so
+        // replace root with element of nums and heapify down
+        else if(nums[i] > heap[0])
+        {
+            heap[0] = nums[i];
+            heapifyDown(heap, heap_size, 0);
+        }
+        
+    }
+    return heap[0];
     return 0;
 }
 
@@ -55,6 +80,9 @@ Optional helper: swap two integers.
 */
 static void swap(int* a, int* b) {
     /* Write your code here if you use this helper */
+    int temp = *b;
+    *b = *a;
+    *a = temp;
 }
 
 /*
@@ -62,6 +90,11 @@ Optional helper: restore min-heap order from a node upward.
 */
 static void heapifyUp(int* heap, int index) {
     /* Write your code here if you use this helper */
+    while(index > 0 && heap[(index - 1)/2] > heap[index])
+    {
+        swap(&heap[index], &heap[(index-1)/2]);
+        index = (index-1)/2;
+    }
 }
 
 /*
@@ -69,4 +102,24 @@ Optional helper: restore min-heap order from a node downward.
 */
 static void heapifyDown(int* heap, int size, int index) {
     /* Write your code here if you use this helper */
+    while(1)
+    {
+        int left_child = 2 * index + 1;
+        int right_child = 2 * index + 2;
+        int smallest = index;
+        if (left_child < size && heap[left_child] < heap[smallest]) 
+        {
+            smallest = left_child;
+        }
+        if (right_child < size && heap[right_child] < heap[smallest]) 
+        {
+            smallest = right_child;
+        }
+        if (smallest != index) 
+        {
+            swap(&heap[index], &heap[smallest]);
+            index = smallest;
+        }
+        else break;        
+    }
 }
