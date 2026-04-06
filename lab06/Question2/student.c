@@ -13,7 +13,26 @@
 int count_isolated(Graph* g) {
     // TODO: implement
     // return -1;
-   
+
+    int isolated = 0;
+
+    // Traverse the adjacency matrix and determine whether the whole row is 0
+    for(int i = 0; i < MAX_NODES; i++)
+    {
+        for(int j = 0; j < MAX_NODES; j++)
+        {
+            // If there's a 1 in the row, that node is not isolated--jump to next row
+            if(g->adj[i][j] == 1)
+            {
+                goto jump_to_next_row;
+            }
+        }
+        // If entire row was 0's, increment isolated
+        isolated++;
+
+        jump_to_next_row:
+    }
+    return isolated;
 }
 
 

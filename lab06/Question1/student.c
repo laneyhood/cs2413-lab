@@ -14,6 +14,23 @@ int count_edges(Graph* g) {
     // TODO: implement
     // return -1;
 
+    int count = 0;
+    
+    // Traverse the adjacency matrix and count all the 1's
+    for(int i = 0; i < MAX_NODES; i++)
+    {
+        for(int j = 0; j < MAX_NODES; j++)
+        {
+            if(g->adj[i][j] == 1)
+            {
+                count++;
+            }
+        }
+    }
+    
+    // The total number of edges is (count of 1's) / 2
+    int edges = count / 2;
+    return edges;
 }
 
 
