@@ -30,13 +30,43 @@ Notes:
 
 void bubbleSort(int arr[], int size) {
     // TODO: implement basic bubble sort
+    for(int i = 0; i < size - 1; i++)
+    {
+        for(int j = 0; j < size - 1 - i; j++)
+        {
+            if(arr[j] > arr[j+1])
+            {
+                int temp = arr[j];
+                arr[j] = arr[j+1];
+                arr[j+1] = temp;
+            }
+        }
+    }
     (void)arr;
     (void)size;
+    // Time complexity O(n^2)
 }
 
 void bubbleSortOptimized(int arr[], int size) {
     // TODO: implement optimized bubble sort with early stopping
+    for(int i = 0; i < size - 1; i++)
+    {
+        int swap = 0;
+        for(int j = 0; j < size - 1 - i; j++)
+        {
+            if(arr[j] > arr[j+1])
+            {
+                int temp = arr[j];
+                arr[j] = arr[j+1];
+                arr[j+1] = temp;
+                swap = 1;
+            }
+        }
+        // If no elements were swapped, break
+        if(swap == 0) break;
+    }
     (void)arr;
     (void)size;
+    // Time complexity O(n^2) worst
 }
 
